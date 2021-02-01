@@ -29,6 +29,7 @@ RUN apt update \
       collection-latexrecommended \
       collection-latexextra \
       collection-fontsrecommended \
+      collection-fontsextra \
       collection-langjapanese \
       latexmk \
       xetex \
