@@ -1,6 +1,7 @@
 # TeX Live Docker image
 ## これなに？
-比較的小さめに収めたTeX Liveが入っているDocker Imageです。
+- 比較的小さめに収めたTeX Liveが入っているDocker Imageです。
+- [fork元](https://github.com/aruneko/texlive) に加え `git` コマンドと TeX Live コレクション `collection-fontsextra` をインストールしてあります。
 
 ## 何が使えるの？
 platexとuplatexはコンパイルできます。latexmkも導入済みなので、変更を検知しながらのコンパイルができます。notoフォントも入れてあるのでWebブラウザ上でのPDFプレビューも日本語に対応しています。またPygmentsを導入してあるため、mintedによるソースコードのシンタックスハイライトも利用可能です。
