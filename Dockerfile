@@ -4,6 +4,7 @@ ENV PATH $PATH:/usr/local/texlive/2020/bin/x86_64-linux
 
 RUN apt update \
  && apt install -y \
+      git \
       perl \
       python3-pygments \
       wget \
