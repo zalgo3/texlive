@@ -8,8 +8,11 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Pull Docker image
+          command: docker pull ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest
+      - run:
           name: Build Docker image
-          command: docker build -t ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest .
+          command: docker build -t ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest --cache-from ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest.
       - run:
           name: Save image
           command: docker image save ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest > ./docker-image.tar
