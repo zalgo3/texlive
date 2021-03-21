@@ -1,32 +1,29 @@
 # TeX Live Docker image
-## これなに？
-- 比較的小さめに収めたTeX Liveが入っているDocker Imageです。
-- [fork元](https://github.com/aruneko/texlive) に加え `git` コマンドと TeX Live コレクション `collection-fontsextra` をインストールしてあります。
+## About
+- Docker image including relatively minimal TeX Live packages.
+- Add some packages to [arcatdmz/texlive](https://github.com/arcatdmz/texlive) to be useful for mathematical scientists who use Japanese and English.
 
-## 何が使えるの？
-platexとuplatexはコンパイルできます。latexmkも導入済みなので、変更を検知しながらのコンパイルができます。notoフォントも入れてあるのでWebブラウザ上でのPDFプレビューも日本語に対応しています。またPygmentsを導入してあるため、mintedによるソースコードのシンタックスハイライトも利用可能です。
-
-## Docker Imageのビルド方法は？
+## Build
 
 ```bash
-$ docker build -t aruneko/texlive .
+$ docker build -t zalgo3/texlive .
 ```
 
-## ビルド済みのイメージを入手するには？
+## Pull
 
 ```bash
 $ docker pull aruneko/texlive
 ```
 
-## このイメージを使ってLaTeXのソースをビルドするには？
-### platexを利用する場合の例
+## Compile LaTeX files
+### platex
 
 ```bash
-$ docker container run -v $(pwd):/texsrc -it --rm aruneko/texlive platex foo.tex
+$ docker container run -v $(pwd):/texsrc -it --rm zalgo3/texlive platex foo.tex
 ```
 
-### latexmkによる自動コンパイル
+### latexmk
 
 ```bash
-$ docker container run -v $(pwd):/texsrc -it --rm aruneko/texlive latexmk -pvc foo.tex
+$ docker container run -v $(pwd):/texsrc -it --rm zalgo3/texlive latexmk -pvc foo.tex
 ```

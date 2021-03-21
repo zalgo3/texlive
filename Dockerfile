@@ -26,15 +26,23 @@ RUN apt update \
       > ./texlive.profile \
  && ./install-tl --profile=./texlive.profile \
  && tlmgr install \
-      collection-latexrecommended \
-      collection-latexextra \
+      collection-bibtexextra \
+      collection-binextra \
       collection-fontsrecommended \
+      collection-fontutils \
       collection-fontsextra \
+      collection-langcjk \
+      collection-langenglish \
       collection-langjapanese \
-      latexmk \
-      xetex \
+      collection-latexextra \
+      collection-latexrecommended \
+      collection-luatex \
+      collection-mathscience \
+      collection-metapost \
+      collection-pictures \
+      collection-plaingeneric \
  && mkdir -p \
-      /usr/local/texlive/texmf-local/fonts/opentype/google/notosanscjk/ \
+      /usr/local/texlive/texmf-local/fonts/opentype/google/notosanscjk/\
  && mkdir -p \
       /usr/local/texlive/texmf-local/fonts/opentype/google/notoserifcjk/ \
  && ln -s /usr/share/fonts/opentype/noto/NotoSansCJK-*.ttc \
@@ -54,4 +62,4 @@ VOLUME /texsrc
 
 WORKDIR /texsrc
 
-CMD ["/bin/bash"]
+CMD ["/bin/bash"] 

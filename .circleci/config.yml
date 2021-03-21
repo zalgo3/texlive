@@ -1,31 +1,55 @@
 version: 2
 
 jobs:
-  build_and_push_image:
+  build:
     docker:
       - image: docker:latest
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Login to Docker Hub
-          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+          name: Pull Docker image
+          command: docker pull ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest
       - run:
           name: Build Docker image
-          command: docker build -t ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest .
+          command: docker build -t circleci --cache-from ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest .
+      - run:
+          name: Add tag
+          command: docker tag circleci ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest 
+      - run:
+          name: Save image
+          command: docker image save ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest > ./docker-image.tar
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./docker-image.tar
+          
+  push:
+    docker:
+      - image: docker:latest
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          name: Load image from tar
+          command: docker load -i ./docker-image.tar
+      - run:
+          name: Login to Docker Hub
+          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - run:
           name: Push Docker image
           command: docker push ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:latest
 
 workflows:
   version: 2
-  build_and_push_docker_image:
-    triggers:
-      - schedule:
-          cron: "0 18 * * *"
+  build-and-push:
+    jobs:
+      - build
+      - push:
+          requires:
+            - build
           filters:
             branches:
               only:
                 - master
-    jobs:
-      - build_and_push_image
