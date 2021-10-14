@@ -1,7 +1,5 @@
 FROM debian:buster-slim
 
-ENV PATH $PATH:/usr/local/texlive/2020/bin/x86_64-linux
-
 RUN apt update \
  && apt install -y \
       git \
@@ -25,7 +23,7 @@ RUN apt update \
       "option_src 0" \
       > ./texlive.profile \
  && ./install-tl --profile=./texlive.profile \
- && tlmgr install \
+ && /usr/local/texlive/????/bin/*/tlmgr install \
       collection-bibtexextra \
       collection-binextra \
       collection-fontsrecommended \
@@ -54,7 +52,8 @@ RUN apt update \
  && rm -rf install-tl.tar.gz install-tl \
  && apt purge -y wget xz-utils libfontconfig-dev \
  && apt autoremove -y \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && /usr/local/texlive/????/bin/*/tlmgr path add
 
 RUN mkdir /texsrc
 
