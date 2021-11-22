@@ -12,7 +12,7 @@ $ docker build -t zalgo3/texlive .
 ## Pull
 
 ```bash
-$ docker pull aruneko/texlive
+$ docker pull zalgo3/texlive
 ```
 
 ## Compile LaTeX files
